@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da Egg Retail Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background-image: url('https://www.kindpng.com/picc/m/69-697812_point-of-sale-png-point-of-sale-transparent.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 90% 110%;
+            
+            background-attachment: fixed;
+            display: flex;
+            justify-content: right;
+            align-items: right;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-container h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .social-button {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .google-login {
+            background-color: #fff;
+            color: #757575;
+            border: 1px solid #ddd;
+        }
+
+        .microsoft-login {
+            background-color: #2672ec;
+            color: white;
+        }
+
+        .email-link-section {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .link {
+            display: block;
+            color: #1900ff;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: 0.25em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: 0.25em;
+        }
+
+        .message {
+            margin-top: 1rem;
+            color: red;
+            text-align: center;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .input-field {
+            border: 1px solid #ccc;
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            width: 100%;
+            padding-right: 40px;
+            /* Make room for the toggle button */
+        }
+
+        #togglePassword:hover {
+            opacity: 0.8;
+        }
+
+        #togglePassword:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container" id="loginForm">
+        <h2>Da Egg Retail Login<h2>
+
+        <input type="email" id="uemail" class="input-field" placeholder="Email">
+        <div id="emailError" class="error-message"></div>
+
+        <div class="password-container" style="position: relative;">
+            <input type="password" id="pasw" class="input-field" placeholder="Password">
+            <button type="button" id="togglePassword"
+                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); border: none; background: none; cursor: pointer;">
+                <i class="eye-icon" style="display: inline-block; width: 20px; height: 20px;">👁️</i>
+            </button>
+        </div>
+        <div id="passwordError" class="error-message"></div>
+        <div id="loginError" class="error-message"></div>
+
+        <button class="button" id="loginBtn">Login</button>
+
+        <div class="divider">OR</div>
+
+        <div class="social-logins text-center" id="socialLoginContainer">
+            <div class="social-login-buttons" id="socialProviders">
+                <!-- Social login providers will be dynamically populated here -->
+            </div>
+        </div>
+
+        <div class="email-link-section">
+            <a href="#" id="loginWithEmailLink" class="link">Login with email link</a>
+        </div>
+
+        <div class="message" id="loginError"></div>
+
+        <div class="email-link-section">
+            <a href="/register" id="newtopoultryos" class="link">New to {{ app_title }}? Create Account</a>
+        </div>
+    </div>
+
+    <div class="login-container" id="loginWithEmailLinkForm" style="display: none;">
+        <h2>Login with Email Link</h2>
+
+        <input type="email" id="emailLinkInput" class="input-field" placeholder="Email">
+        <div id="emailLinkMessage" class="error-message"></div>
+        <button id="sendEmailLinkBtn" class="button">Send Login Link</button>
+
+        <div class="email-link-section">
+            <a href="#" id="backtologin" class="link">Back to Login</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            togglePasswordField();
+            setupEventListeners();
+            fetchSocialLoginProviders();
+        });
+
+        function togglePasswordField() {
+            const passwordInput = document.getElementById('pasw');
+            const toggleButton = document.getElementById('togglePassword');
+
+            toggleButton.addEventListener('click', function () {
+                // Toggle the password visibility
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Update the eye icon (optional: you can replace with proper icons)
+                this.querySelector('.eye-icon').textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+            });
+        }
+
+        function setupEventListeners() {
+            document.getElementById("backtologin").addEventListener("click", showLoginForm);
+            document.getElementById("loginBtn").addEventListener("click", handleLogin);
+            document.getElementById("loginWithEmailLink").addEventListener("click", showEmailLinkForm);
+            document.getElementById("sendEmailLinkBtn").addEventListener("click", handleSendEmailLink);
+        }
+
+        function showLoginForm() {
+            document.getElementById("loginWithEmailLinkForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+        }
+
+        function showEmailLinkForm() {
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("loginWithEmailLinkForm").style.display = "block";
+        }
+
+        function handleLogin() {
+            const email = document.getElementById("uemail").value;
+            const password = document.getElementById("pasw").value;
+
+            clearErrors();
+
+            let isValid = validateLoginForm(email, password);
+            if (isValid) {
+                attemptLogin(email, password);
+            }
+        }
+
+        function clearErrors() {
+            document.getElementById("emailError").innerText = "";
+            document.getElementById("passwordError").innerText = "";
+            document.getElementById("loginError").innerText = "";
+            document.getElementById("uemail").style.borderColor = "";
+            document.getElementById("pasw").style.borderColor = "";
+        }
+
+        function validateLoginForm(email, password) {
+            let isValid = true;
+
+            // Validate email
+            if (!email) {
+                showError("emailError", "Email is required.", "uemail");
+                isValid = false;
+            }
+            else if (!isValidEmail(email) && email !== "Administrator") {
+                showError("emailError", "Please enter a valid email address.", "uemail");
+                isValid = false;
+            }
+
+            // Validate password
+            if (!password) {
+                showError("passwordError", "Password is required.", "pasw");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function showError(errorElementId, errorMessage, inputElementId) {
+            document.getElementById(errorElementId).innerText = errorMessage;
+            document.getElementById(inputElementId).style.borderColor = "red";
+        }
+
+        function isValidEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailPattern.test(email);
+        }
+
+        function attemptLogin(email, password) {
+            frappeLogin(email, password)
+                .then(response => {
+                    if (response.success) {
+                        window.location.href = '/app';
+                    } else {
+                        showError("loginError", response.message);
+                    }
+                })
+                .catch(() => {
+                    showError("loginError", "Login failed. Please try again later.");
+                });
+        }
+
+        function showError(errorElementId, errorMessage) {
+            document.getElementById(errorElementId).innerText = errorMessage;
+        }
+
+        function fetchSocialLoginProviders() {
+            fetch('/api/method/wh_poultryos.www.login.get_social_login_providers')
+                .then(response => response.json())
+                .then(data => renderSocialLoginProviders(data))
+                .catch((ex) => {
+                    console.error('Error fetching social login providers', ex);
+                });
+        }
+
+        function renderSocialLoginProviders(data) {
+            const socialProvidersContainer = document.getElementById('socialProviders');
+            const emailLinkContainer = document.getElementById('loginWithEmailLink');
+
+            // Render social login providers
+            if (data.message.provider_logins && data.message.provider_logins.length) {
+                data.message.provider_logins.forEach(provider => {
+                    const providerButton = document.createElement('div');
+                    providerButton.className = 'social-login';
+                    providerButton.innerHTML = `
+                <a href="${provider.auth_url}" class="social-button ${provider.name}-login">
+                    Login with ${provider.provider_name}
+                </a>
+            `;
+                    socialProvidersContainer.appendChild(providerButton);
+                });
+            }
+
+            // Show email link login if available
+            if (data.message.login_with_email_link) {
+                emailLinkContainer.style.display = 'block';
+            }
+        }
+
+        function handleSendEmailLink() {
+            const email = document.getElementById("emailLinkInput").value;
+            const messageEl = document.getElementById("emailLinkMessage");
+
+            if (email) {
+                sendLoginLink(email)
+                    .then(response => {
+                        if (response.success) {
+                            displayMessage(messageEl, "Login link sent to your email!", "green");
+                        } else {
+                            displayMessage(messageEl, "Failed to send login link.");
+                        }
+                    })
+                    .catch(() => {
+                        displayMessage(messageEl, "An error occurred.");
+                    });
+            } else {
+                displayMessage(messageEl, "Please enter your email.");
+            }
+        }
+
+        function displayMessage(element, message, color = "red") {
+            element.textContent = message;
+            element.style.color = color;
+        }
+
+        function sendLoginLink(email) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '/api/method/frappe.www.login.send_login_link', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        if (xhr.responseText.length > 0) {
+                            console.log(1, xhr.responseText);
+                            resolve(JSON.parse(xhr.responseText));
+                        } else {
+                            console.log(0);
+                            resolve({ success: true, message: "Email Sent" });
+                        }
+                    } else {
+                        reject(new Error('Failed to send login link'));
+                    }
+                };
+
+                xhr.onerror = function () {
+                    reject(new Error('Network error'));
+                };
+
+                xhr.send(JSON.stringify({ email }));
+            });
+        }
+
+        function frappeLogin(email, password) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "/api/method/login", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.message === "Logged In") {
+                            resolve({ success: true });
+                        } else {
+                            resolve({ success: false, message: response.message });
+                        }
+                    } else {
+                        const response = JSON.parse(xhr.responseText);
+                        reject({ success: false, message: response.message });
+                    }
+                };
+
+                xhr.onerror = function () {
+                    reject({ success: false, message: "An error occurred while trying to log in." });
+                };
+
+                xhr.send(`usr=${email}&pwd=${password}`);
+            });
+        }
+    </script>
+</body>
+
+</html>
