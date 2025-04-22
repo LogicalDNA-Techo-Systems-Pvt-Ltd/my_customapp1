@@ -42,6 +42,35 @@ def get_data():
     except requests.exceptions.RequestException as e:
         frappe.log_error(message=str(e), title=_("SAP Items Fetch Error"))
         frappe.throw(_("Unable to fetch SAP Items. Please check the logs for details."))
+        
+        
+@frappe.whitelist()
+def get_pos_dashboard_data():
+    top_items = frappe.db.sql("""
+        SELECT item_name, SUM(qty) as total_qty, SUM(amount) as total_value
+        FROM `tabPOS Invoice Item`
+        WHERE docstatus = 1 AND posting_date = CURDATE()
+        GROUP BY item_name
+        ORDER BY total_qty DESC
+        LIMIT 5
+    """, as_dict=True)
+
+    orders_today = frappe.db.count("POS Invoice", {
+        "docstatus": 1,
+        "posting_date": frappe.utils.today()
+    })
+
+    value_today = frappe.db.sql("""
+        SELECT SUM(grand_total) FROM `tabPOS Invoice`
+        WHERE docstatus = 1 AND posting_date = CURDATE()
+    """)[0][0] or 0
+
+    return {
+        "top_items": top_items,
+        "orders_today": orders_today,
+        "value_today": value_today
+    }
+
 
    
         

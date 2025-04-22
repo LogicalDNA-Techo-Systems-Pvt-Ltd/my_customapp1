@@ -28,7 +28,17 @@ app_license = "mit"
 # app_include_css = "/assets/my_customapp1/css/my_customapp1.css"
 # app_include_js = "/assets/my_customapp1/js/my_customapp1.js"
 
-app_include_js = "/public/js/custom_pos.js"
+#app_include_js = "/public/js/custom_pos.js"
+#app_include_js = "/assets/my_customapp1/js/pos_dashboard.js"
+
+app_include_js = "/assets/my_customapp1/public/js/pos_dashboard.js"
+
+
+doctype_js = {
+    "Material Request": "public/js/material_request.js"
+}
+
+
 
 # include js, css files in header of web template
 # web_include_css = "/assets/my_customapp1/css/my_customapp1.css"

@@ -1,0 +1,68 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"s7LPzvmgTx\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">INVOICE</span>\",\"col\":12}},{\"id\":\"2WZtcFQqFi\",\"type\":\"card\",\"data\":{\"card_name\":\"Profile\",\"col\":4}},{\"id\":\"k6D1KgxHiJ\",\"type\":\"card\",\"data\":{\"card_name\":\"Point of sale\",\"col\":4}}]",
+ "creation": "2025-04-07 10:56:28.367448",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "right",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "INVOICE",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Profile",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "POS Profile",
+   "link_count": 0,
+   "link_to": "POS Profile",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Point of sale",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Point of Sale",
+   "link_count": 0,
+   "link_to": "point-of-sale",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-04-22 10:16:11.032315",
+ "modified_by": "Administrator",
+ "module": "DAEGSS RETAIL",
+ "name": "INVOICE",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "POS",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 23.0,
+ "shortcuts": [],
+ "title": "INVOICE"
+}

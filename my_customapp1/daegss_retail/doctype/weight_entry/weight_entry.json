@@ -1,0 +1,66 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-04-22 13:07:33.996010",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "broiler_type",
+  "range_800_1000",
+  "range_1001_1400",
+  "range_1401_1800",
+  "range_1801_2000"
+ ],
+ "fields": [
+  {
+   "fieldname": "broiler_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Broiler_type",
+   "options": "S/ Broiler\nB/ Broiler"
+  },
+  {
+   "fieldname": "range_800_1000",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "range_800_1000"
+  },
+  {
+   "fieldname": "range_1001_1400",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "range_1001_1400"
+  },
+  {
+   "fieldname": "range_1401_1800",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "range_1401_1800"
+  },
+  {
+   "fieldname": "range_1801_2000",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "range_1801_2000"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2025-04-22 13:19:10.708254",
+ "modified_by": "Administrator",
+ "module": "DAEGSS RETAIL",
+ "name": "Weight Entry",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
