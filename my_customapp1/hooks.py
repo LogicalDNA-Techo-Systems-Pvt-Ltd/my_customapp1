@@ -254,7 +254,13 @@ doctype_js = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
-website_route_rules = [
-    {"from_route": "/login", "to_route": "login"}   
-]
+# website_route_rules = [
+#     {"from_route": "/login", "to_route": "login"}   
+# ]
+
+
+website_context = {
+    "favicon": "/assets/my_customapp1/images/DC_LOGO.png"
+}
+
 
