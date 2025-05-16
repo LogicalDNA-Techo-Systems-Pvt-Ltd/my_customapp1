@@ -44,33 +44,18 @@ def get_data():
         frappe.throw(_("Unable to fetch SAP Items. Please check the logs for details."))
         
         
+# your_custom_app/api.py
+
 @frappe.whitelist()
-def get_pos_dashboard_data():
-    top_items = frappe.db.sql("""
-        SELECT item_name, SUM(qty) as total_qty, SUM(amount) as total_value
-        FROM `tabPOS Invoice Item`
-        WHERE docstatus = 1 AND posting_date = CURDATE()
-        GROUP BY item_name
-        ORDER BY total_qty DESC
-        LIMIT 5
-    """, as_dict=True)
-
-    orders_today = frappe.db.count("POS Invoice", {
-        "docstatus": 1,
-        "posting_date": frappe.utils.today()
-    })
-
-    value_today = frappe.db.sql("""
-        SELECT SUM(grand_total) FROM `tabPOS Invoice`
-        WHERE docstatus = 1 AND posting_date = CURDATE()
-    """)[0][0] or 0
-
+def get_dashboard_data(date):
+    # Add your logic to fetch top 5 fast and non-moving items
     return {
-        "top_items": top_items,
-        "orders_today": orders_today,
-        "value_today": value_today
+        "fast_moving": [
+            {"item_code": "IT001", "item_name": "Feed A", "inward": 50, "outward": 40, "balance": 10},
+            # 4 more
+        ],
+        "non_moving": [
+            {"item_code": "IT010", "item_name": "Medicine Z", "inward": 0, "outward": 0, "balance": 5},
+            # 4 more
+        ]
     }
-
-
-   
-        

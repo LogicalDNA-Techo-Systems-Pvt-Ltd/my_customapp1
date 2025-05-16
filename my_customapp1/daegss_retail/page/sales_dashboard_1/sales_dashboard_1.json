@@ -1,0 +1,23 @@
+{
+ "content": null,
+ "creation": "2025-05-08 14:50:42.231836",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-05-16 12:52:53.491417",
+ "modified_by": "Administrator",
+ "module": "DAEGSS RETAIL",
+ "name": "sales-dashboard-1",
+ "owner": "Administrator",
+ "page_name": "sales-dashboard-1",
+ "roles": [
+  {
+   "role": "Administrator"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Sales Dashboard"
+}

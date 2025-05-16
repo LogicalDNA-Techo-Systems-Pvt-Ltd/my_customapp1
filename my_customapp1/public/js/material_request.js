@@ -15,39 +15,6 @@
 //     },
 
     
-
-//     refresh: function(frm) {
-        
-//         frm.add_custom_button('Bind Weights', function () {
-
-//             const staticData = {
-//                 'S/ Broiler': {
-//                     range_800_1000: 29,
-//                     range_1001_1400: 67,
-//                     range_1401_1800: 45,
-//                     range_1801_2000: 33
-//                 },
-//                 'B/ Broiler': {
-//                     range_800_1000: 21,
-//                     range_1001_1400: 54,
-//                     range_1401_1800: 40,
-//                     range_1801_2000: 25
-//                 }
-//             };
-
-//             frm.doc.custom_weight_lists.forEach(row => {
-//                 if (staticData[row.name]) {
-//                     Object.assign(row, staticData[row.name]);
-//                 }
-//             });
-
-//             frm.refresh_field('custom_weight_lists');
-//         });
-//     },
-
-    
-// });
-
 frappe.ui.form.on('Material Request', {
     onload: function(frm) {
         // Pre-fill 2 rows if empty

@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"n_Z4uHxOfV\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">POS</span>\",\"col\":12}},{\"id\":\"VHpFkTsjWy\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Orders Today\",\"col\":4}},{\"id\":\"i7fIbreHJR\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Orders Value\",\"col\":4}}]",
+ "content": "[{\"id\":\"n_Z4uHxOfV\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">POS</span>\",\"col\":12}},{\"id\":\"CbwCi1YWON\",\"type\":\"card\",\"data\":{\"card_name\":\"Sales Dashboard\",\"col\":4}}]",
  "creation": "2025-04-02 14:06:02.570989",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,21 +12,32 @@
  "indicator_color": "",
  "is_hidden": 0,
  "label": "POS",
- "links": [],
- "modified": "2025-04-22 10:16:03.182653",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Dashboard",
+   "link_count": 1,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Sales Dashboard",
+   "link_count": 0,
+   "link_to": "sales-dashboard-1",
+   "link_type": "Page",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2025-05-16 12:45:27.877139",
  "modified_by": "Administrator",
  "module": "DAEGSS RETAIL",
  "name": "POS",
- "number_cards": [
-  {
-   "label": "Orders Today",
-   "number_card_name": "Orders Today"
-  },
-  {
-   "label": "Orders Value",
-   "number_card_name": "Orders Value"
-  }
- ],
+ "number_cards": [],
  "owner": "manishbhosale28@gmail.com",
  "parent_page": "",
  "public": 1,
