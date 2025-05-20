@@ -108,6 +108,38 @@ def get_top_5_moving_items(from_date=None, to_date=None):
 
     return frappe.db.sql(query, values, as_dict=True)
 
+# @frappe.whitelist()
+# def get_top_5_moving_items(from_date=None, to_date=None):
+#     conditions = ""
+#     values = {}
+
+#     if from_date and to_date:
+#         conditions += " AND sle.posting_date BETWEEN %(from_date)s AND %(to_date)s"
+#         values.update({
+#             "from_date": from_date,
+#             "to_date": to_date
+#         })
+
+#     query = f"""
+#         SELECT
+#             sle.item_code,
+#             i.item_name,
+#             SUM(CASE WHEN sle.actual_qty > 0 THEN sle.actual_qty ELSE 0 END) AS inward,
+#             SUM(CASE WHEN sle.actual_qty < 0 THEN ABS(sle.actual_qty) ELSE 0 END) AS outward,
+#             SUM(sle.actual_qty) AS balance
+#         FROM `tabStock Ledger Entry` sle
+#         INNER JOIN `tabItem` i ON i.name = sle.item_code
+#         WHERE sle.docstatus = 1
+#           AND (sle.voucher_type != 'Stock Reconciliation' OR sle.is_opening != 'Yes')
+#           {conditions}
+#         GROUP BY sle.item_code
+#         ORDER BY inward DESC
+#         LIMIT 5
+#     """
+
+#     return frappe.db.sql(query, values, as_dict=True)
+
+
     
 # @frappe.whitelist()
 # def get_top_5_moving_items2():
@@ -236,6 +268,40 @@ def get_top_5_moving_items2(from_date=None, to_date=None):
 # 	return frappe.db.sql(query, values, as_dict=True)
 
 
+# @frappe.whitelist()
+# def get_inventory_register(from_date=None, to_date=None):
+#     conditions = ""
+#     values = {}
+
+#     if from_date and to_date:
+#         conditions += " AND se.posting_date BETWEEN %(from_date)s AND %(to_date)s"
+#         values.update({
+#             "from_date": from_date,
+#             "to_date": to_date
+#         })
+
+#     query = f"""
+#         SELECT
+#             bi.item_code,
+#             i.item_name,
+#             SUM(CASE WHEN se.purpose = 'Material Receipt' THEN bi.qty ELSE 0 END) AS inward,
+#             SUM(CASE WHEN se.purpose = 'Material Issue' THEN bi.qty ELSE 0 END) AS outward,
+#             SUM(bi.qty * (CASE 
+#                             WHEN se.purpose = 'Material Receipt' THEN 1 
+#                             WHEN se.purpose = 'Material Issue' THEN -1 
+#                             ELSE 0 
+#                           END)) AS balance
+#         FROM `tabStock Entry Detail` bi
+#         INNER JOIN `tabStock Entry` se ON se.name = bi.parent
+#         INNER JOIN `tabItem` i ON i.name = bi.item_code
+#         WHERE se.docstatus = 1
+#         {conditions}
+#         GROUP BY bi.item_code
+#         ORDER BY i.item_name
+#     """
+
+#     return frappe.db.sql(query, values, as_dict=True)
+
 @frappe.whitelist()
 def get_inventory_register(from_date=None, to_date=None):
     conditions = ""
@@ -252,19 +318,32 @@ def get_inventory_register(from_date=None, to_date=None):
         SELECT
             bi.item_code,
             i.item_name,
-            SUM(CASE WHEN se.purpose = 'Material Receipt' THEN bi.qty ELSE 0 END) AS inward,
-            SUM(CASE WHEN se.purpose = 'Material Issue' THEN bi.qty ELSE 0 END) AS outward,
-            SUM(bi.qty * (CASE 
-                            WHEN se.purpose = 'Material Receipt' THEN 1 
-                            WHEN se.purpose = 'Material Issue' THEN -1 
-                            ELSE 0 
-                          END)) AS balance
+            COALESCE(bi.t_warehouse, bi.s_warehouse) AS warehouse,
+            SUM(CASE 
+                    WHEN se.purpose = 'Material Receipt' AND bi.t_warehouse IS NOT NULL 
+                    THEN bi.qty 
+                    ELSE 0 
+                END) AS inward,
+            SUM(CASE 
+                    WHEN se.purpose = 'Material Issue' AND bi.s_warehouse IS NOT NULL 
+                    THEN bi.qty 
+                    ELSE 0 
+                END) AS outward,
+            SUM(
+                CASE 
+                    WHEN se.purpose = 'Material Receipt' AND bi.t_warehouse IS NOT NULL 
+                    THEN bi.qty
+                    WHEN se.purpose = 'Material Issue' AND bi.s_warehouse IS NOT NULL 
+                    THEN -bi.qty
+                    ELSE 0
+                END
+            ) AS balance
         FROM `tabStock Entry Detail` bi
         INNER JOIN `tabStock Entry` se ON se.name = bi.parent
         INNER JOIN `tabItem` i ON i.name = bi.item_code
         WHERE se.docstatus = 1
         {conditions}
-        GROUP BY bi.item_code
+        GROUP BY bi.item_code, warehouse
         ORDER BY i.item_name
     """
 

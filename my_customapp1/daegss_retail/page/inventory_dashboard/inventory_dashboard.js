@@ -96,6 +96,7 @@ frappe.pages['inventory-dashboard'].on_page_load = function (wrapper) {
 								<tr>										
 									<th>Item Code</th>
 									<th>Item Name</th>
+									<th>Warehouse</th>
 									<th>Inward</th>
 									<th>Outward</th>
 									<th>Balance</th>
@@ -355,6 +356,7 @@ frappe.pages['inventory-dashboard'].on_page_load = function (wrapper) {
 					<tr>
 						<td>${transaction.item_code}</td>
 						<td>${transaction.item_name}</td>
+						<td>${transaction.warehouse}</td>
 						<td>${transaction.inward}</td>
 						<td>${transaction.outward}</td>
 						<td>${transaction.balance}</td>
