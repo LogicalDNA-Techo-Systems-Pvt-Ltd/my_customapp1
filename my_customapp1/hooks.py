@@ -28,16 +28,20 @@ app_license = "mit"
 # app_include_css = "/assets/my_customapp1/css/my_customapp1.css"
 # app_include_js = "/assets/my_customapp1/js/my_customapp1.js"
 
-#app_include_js = "/public/js/custom_pos.js"
-#app_include_js = "/assets/my_customapp1/js/pos_dashboard.js"
+# app_include_js = "/public/js/custom_pos.js"
+# app_include_js = "/assets/my_customapp1/js/pos_dashboard.js"
 
-app_include_js = "/assets/my_customapp1/public/js/pos_dashboard.js"
+app_include_css = ["/assets/my_customapp1/css/custom.css"]
+
+app_include_js = [
+    # "/assets/my_customapp1/js/pos_dashboard.js",
+    # "/assets/my_customapp1/js/status_wise_pos_orders.js",
+    "/assets/my_customapp1/js/pos_custom.js",
+    "/assets/my_customapp1/js/custom_pos_extension.js"
+]
 
 
-doctype_js = {
-    "Material Request": "public/js/material_request.js"
-}
-
+doctype_js = {"Material Request": "public/js/material_request.js"}
 
 
 # include js, css files in header of web template
@@ -141,21 +145,21 @@ doctype_js = {
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+    "Sales Invoice": "my_customapp1.overrides.custom_sales_invoice.CustomSalesInvoice"
+}
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "POS Invoice": {
+        "validate": "your_app.pos_workflow.validate_pos_invoice",
+        "on_submit": "your_app.pos_workflow.on_pos_invoice_submit",
+        "on_payment_completion": "your_app.pos_workflow.on_payment_completion",
+    }
+}
 
 # Scheduled Tasks
 # ---------------
@@ -255,12 +259,8 @@ doctype_js = {
 # }
 
 # website_route_rules = [
-#     {"from_route": "/login", "to_route": "login"}   
+#     {"from_route": "/login", "to_route": "login"}
 # ]
 
 
-website_context = {
-    "favicon": "/assets/my_customapp1/images/DC_LOGO.png"
-}
-
-
+website_context = {"favicon": "/assets/my_customapp1/images/DC_LOGO.png"}
