@@ -155,9 +155,9 @@ override_doctype_class = {
 
 doc_events = {
     "POS Invoice": {
-        "validate": "your_app.pos_workflow.validate_pos_invoice",
-        "on_submit": "your_app.pos_workflow.on_pos_invoice_submit",
-        "on_payment_completion": "your_app.pos_workflow.on_payment_completion",
+        "validate": "my_customapp1.pos_workflow.validate_pos_invoice",
+        "on_submit": "my_customapp1.pos_workflow.on_pos_invoice_submit",
+        "on_payment_completion": "my_customapp1.pos_workflow.on_payment_completion",
     }
 }
 
