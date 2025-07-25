@@ -157,7 +157,7 @@ async function loadPOSOrders(silent = false) {
 		window.currentOrderSource = 'POS';
 
 		renderOrders(res.message || [], 'POS');
-		renderStatusSummary(res.message || []);
+		// renderStatusSummary(res.message || []);
 
 	} catch (e) {
 		console.error('[POS Orders] Error loading POS orders:', e);
@@ -300,16 +300,9 @@ function renderOrders(data, sourceLabel) {
 
 	const filteredData = applyFilters(data);
 	const statusCount = ORDER_STATUSES.length;
-	const colClass = statusCount <= 4 ? `col-md-${12 / statusCount}` : 'col-md-2';
 
 	let html = `
-		<!-- <div class="d-flex justify-content-between align-items-center mb-3">
-			<h5 class="mb-0">
-				${sourceLabel} Orders 
-				<span class="badge badge-primary">${filteredData.length}</span>
-			</h5>
-		</div> -->
-		<div class="row">
+		<div class="d-flex flex-wrap justify-content-start" style="gap: 1rem;">
 	`;
 
 	// Create status columns with drag-and-drop support
@@ -318,11 +311,12 @@ function renderOrders(data, sourceLabel) {
 		const statusClass = getStatusClass(status);
 
 		html += `
-			<div class="${colClass} mb-3">
+			<div class="flex-grow-1" 
+				 style="min-width: calc(100% / ${statusCount} - 1rem); max-width: calc(100% / ${statusCount} - 1rem);">
 				<div class="card h-100">
-					<div class="card-header ${statusClass} text-center py-2">
+					<div class="card-header text-center py-2">
 						<strong>${status}</strong>
-						<span class="badge badge-light ml-2">${statusOrders.length}</span>
+						<span class="badge badge-dark ml-2">${statusOrders.length}</span>
 					</div>
 					<div class="card-body p-2 kanban-column" 
 						 id="kanban-${status.replace(/\s+/g, '-')}" 
@@ -349,6 +343,7 @@ function renderOrders(data, sourceLabel) {
 		}
 	});
 }
+
 
 function applyFilters(data) {
 	let filtered = [...data];
@@ -393,7 +388,7 @@ function createOrderCard(order, sourceLabel) {
 					${allowedTransitions.map(status =>
 				`<button class="btn btn-sm btn-outline-primary mx-1" 
 						         onclick="updateOrderStatus('${order.name}', '${status}', event)">
-							${getStatusIcon(status)} ${status}
+							${getStatusIcon(status)} Mark as ${status}
 						</button>`
 			).join('')}
 				</div>
